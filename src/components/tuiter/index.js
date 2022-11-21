@@ -11,6 +11,8 @@ import Notifications from "../notifications";
 import Messages from "../messages";
 import Lists from "../lists";
 import More from "../more";
+import {Login} from "../profile/login";
+import Signup from "../profile/signup";
 
 function Tuiter () {
   return(
@@ -23,14 +25,20 @@ function Tuiter () {
           <div className="ttr-center-column">
             <Routes>
               <Route path="/" element={<Home/>}/>
+              <Route path="/login" element={<Login/>}/>
+              <Route path="/signup" element={<Signup/>}/>
+
               <Route path="/tuiter" element={<Home/>}/>
+
               <Route path="/home" element={<Home/>}/>
+
               <Route path="/explore" element={<Explore/>}/>
+              
               <Route path="/notifications" element={<Notifications/>}/>
               <Route path="/messages" element={<Messages/>}/>
               <Route path="/bookmarks" element={<Bookmarks/>}/>
               <Route path="/lists" element={<Lists/>}/>
-              <Route path="/profile" element={<Profile/>}/>
+              <Route path="/profile/*" element={<Profile/>}/>
               <Route path="/more" element={<More/>}/>
             </Routes>
           </div>
