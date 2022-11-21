@@ -1,4 +1,4 @@
-import {useNavigate} from "react-router-dom";
+import {HashRouter, Link, Route, Routes, useNavigate, useLocation} from "react-router-dom";
 import {useState} from "react";
 import * as service from "../../services/auth-service"
 
@@ -12,14 +12,26 @@ export const Login = () => {
   return (
     <div>
       <h1>Login</h1>
-      <input onChange={(e) =>
+      <br/>
+      <div class="form-group">
+        <label for="usr">Username:</label>
+        <input class="form-control" id={`usr`} onChange={(e) =>
         setLoginUser({...loginUser,
           username: e.target.value})}/>
-      <input onChange={(e) =>
+      </div>
+      <br/>
+      <div className={`form-group`}>
+        <label for="pwd">Password:</label>
+        <input class="form-control" id={`pwd`} onChange={(e) =>
         setLoginUser({...loginUser,
           password: e.target.value})}/>
-      <button onClick={login}>
+      </div>
+      <br/>
+      <button className={`btn btn-primary`} onClick={login}>
         Login</button>
+        <br/>
+        <br/>
+      <Link className={`btn btn-primary`} to="/signup">Go To SignUp</Link>
     </div>
   );
 };
