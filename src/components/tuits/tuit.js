@@ -5,6 +5,7 @@ import TuitVideo from "./tuit-video";
 import {useNavigate, Link} from "react-router-dom";
 
 const Tuit = ({tuit, likeTuit}) => {
+    console.log(tuit.stats)
     const daysOld = (tuit) => {
         const now = new Date();
         const nowMillis = now.getTime();
@@ -31,11 +32,10 @@ const Tuit = ({tuit, likeTuit}) => {
     // <li onClick={() => navigate(`/tuit/${tuit._id}`)}
     <li className="p-2 ttr-tuit list-group-item d-flex rounded-0">
       <div className="pe-2">
-        {
+        {/* {
           tuit.postedBy &&
-          <img src={`../images/nasa-logo.jpg`}
-               className="ttr-tuit-avatar-logo rounded-circle"/>
-        }
+          
+        } */}
       </div>
       <div className="w-100">
         <h2

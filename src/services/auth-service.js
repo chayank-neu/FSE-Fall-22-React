@@ -4,7 +4,7 @@ import axios from "axios";
  * @file Authentication service allows the profile and logout middleware on
  * the server to be accessed by a React client
  */
-const BASE_URL = 'http://localhost:4000';
+ const BASE_URL = process.env.REACT_APP_BASE_URL;
 const AUTH_API = `${BASE_URL}/auth`;
 
 const api = axios.create({

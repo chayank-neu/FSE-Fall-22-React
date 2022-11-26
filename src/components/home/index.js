@@ -1,8 +1,24 @@
 import React from "react";
 import Tuits from "../tuits";
 import tuitsArray from "../tuits/tuits-data.json"
+import * as service from "../../services/tuits-service";
+import {useEffect, useState} from "react";
 
 const Home = () => {
+  const [tuits, setTuits] = useState([]);
+  const findMyTuits = () =>
+        service.findTuitByUser("me")
+            .then(tuits => {
+              console.log(tuits)
+              setTuits(tuits)
+            });
+
+  useEffect(() => {
+              findMyTuits();
+              return () => {
+                  setTuits({});
+              };
+          }, []);
   return(
     <div className="ttr-home">
       <div className="border border-bottom-0">
@@ -35,7 +51,8 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <Tuits tuits={tuitsArray}/>
+      <Tuits tuits={tuits} refreshTuits={findMyTuits}/>
+      
     </div>
   );
 };

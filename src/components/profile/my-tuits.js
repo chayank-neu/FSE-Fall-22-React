@@ -29,12 +29,7 @@ const MyTuits = () => {
     }
     
 
-    useEffect(() => {
-        findMyTuits();
-        return () => {
-            setTuits({});
-        };
-    }, []);
+    useEffect(findMyTuits, []);
 
     return(
         <div>
