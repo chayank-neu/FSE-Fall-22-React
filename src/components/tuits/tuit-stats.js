@@ -1,6 +1,6 @@
 import React from "react";
 
-const TuitStats = ({tuit, likeTuit}) => {
+const TuitStats = ({tuit, likeTuit, dislikeTuit}) => {
 
   console.log(tuit.stats)
     return (
@@ -17,15 +17,30 @@ const TuitStats = ({tuit, likeTuit}) => {
           <span onClick={() => likeTuit(tuit)}>
             {
               tuit?.stats?.likes > 0 &&
-              <i className="fas fa-heart me-1"
+              <i className="fas fa-thumbs-up me-1"
                 style={{color: 'red'}}></i>
             }
             {
               tuit?.stats?.likes <= 0 &&
-              <i className="far fa-heart me-1"></i>
+              <i className="far fa-thumbs-up me-1"></i>
             }
 
             {tuit.stats && tuit.stats.likes}
+          </span>
+        </div>
+        <div className="col">
+          <span onClick={() => dislikeTuit(tuit)}>
+            {
+              tuit?.stats?.dislikes > 0 &&
+              <i className="fas fa-thumbs-down me-1"
+                style={{color: 'red'}}></i>
+            }
+            {
+              tuit?.stats?.dislikes <= 0 &&
+              <i className="far fa-thumbs-down me-1"></i>
+            }
+
+            {tuit.stats && tuit.stats.dislikes}
           </span>
         </div>
         <div className="col">
