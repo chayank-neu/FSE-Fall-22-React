@@ -1,13 +1,13 @@
 import React from "react";
 import Tuits from "../tuits";
-import tuitsArray from "../tuits/tuits-data.json"
+// import tuitsArray from "../tuits/tuits-data.json"
 import * as service from "../../services/tuits-service";
 import {useEffect, useState} from "react";
 
 const Home = () => {
   const [tuits, setTuits] = useState([]);
   const findMyTuits = () =>
-        service.findTuitByUser("me")
+        service.findAllTuits()
             .then(tuits => {
               console.log(tuits)
               setTuits(tuits)
@@ -26,7 +26,7 @@ const Home = () => {
         <div className="d-flex">
           <div className="p-2">
             <img className="ttr-width-50px rounded-circle"
-                 src="../images/nasa-logo.jpg"/>
+                 src="../images/nasa-logo.jpg" alt=""/>
           </div>
           <div className="p-2 w-100">
             <textarea

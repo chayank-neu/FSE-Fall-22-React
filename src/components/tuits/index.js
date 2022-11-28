@@ -2,6 +2,7 @@ import Tuit from "./tuit";
 import {useEffect, useState} from "react";
 import * as likesService from "../../services/likes-service";
 import * as dislikesService from "../../services/dislikes-service";
+
 const Tuits = ({tuits = [], deleteTuit,
                 refreshTuits}) => {
 
@@ -20,8 +21,7 @@ const Tuits = ({tuits = [], deleteTuit,
       .then(refreshTuits)
       .catch(e => alert(e))
   }
-                  
-    
+                   
 
   return (
     <div>

@@ -10,6 +10,10 @@
  const api = axios.create({
      withCredentials: true
  });
+
+ export const findAllTuits = () =>
+  axios.get(TUITS_API)
+    .then(response => response.data);
  
  export const findTuitByUser = (uid) =>
      api.get(`${USERS_API}/${uid}/tuits`)
@@ -18,3 +22,7 @@
  export const createTuit = (uid, tuit) =>
      api.post(`${USERS_API}/${uid}/tuits`, tuit)
          .then(response => response.data);
+
+export const deleteTuit = (tid) =>
+         api.delete(`${TUITS_API}/${tid}`)
+             .then(response => response.data);
