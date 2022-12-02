@@ -24,5 +24,9 @@
          .then(response => response.data);
 
 export const deleteTuit = (tid) =>
-         api.delete(`${TUITS_API}/${tid}`)
+    api.delete(`${TUITS_API}/${tid}`)
              .then(response => response.data);
+
+export const findTuitById = (tid) =>
+    api.get(`${TUITS_API}/${tid}`)
+                 .then(response => response.data);

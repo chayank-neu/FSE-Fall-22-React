@@ -1,38 +1,41 @@
+/**
+ * @jest-environment node
+ */
+
 import {createUser, deleteUser} from "../services/users-service";
-import {createTuit, deleteTuit, findTuitByUser} from "../services/tuits-service";
+import {createTuit, deleteTuit, findTuitByUser, findTuitById} from "../services/tuits-service";
 import {findAllTuitsLikedByUser, userTogglesTuitLikes} from "../services/likes-service";
 
-describe('like button updates tuit stats', () => {
+describe('updating tuits stats by like button', () => {
 
-    // sample users we'll insert to then retrieve
+    // sample users
     const usernames = [
-        "harry", "ron", "hermione"
+        "karan", "suresh", "mahes"
     ];
 
-    let newUsers = [];
-    let newTuit = null;
+    let nwUsers = [];
+    let nwTuit = null;
 
-    // setup data before test
+
     beforeAll(async () => {
-        // insert several known users
-        newUsers = await Promise.all(
+        // insert all users
+        nwUsers = await Promise.all(
             usernames.map(async (username) => {
                 return await createUser({
                     username,
-                    password: `${username}123`,
-                    email: `${username}@hogwarts.com`
+                    password: `${username}456`,
+                    email: `${username}@gmail.com`
                 })
             })
         )
     });
 
-    // clean up after test runs
     afterAll(async () => {
-        // remove any data we created
-        for (const user of newUsers) {
-            await userTogglesTuitLikes(user._id, newTuit._id);
+        // remove all data created
+        for (const user of nwUsers) {
+            await userTogglesTuitLikes(user._id, nwTuit._id);
         }
-        await Promise.all(newUsers.map(async (user) => {
+        await Promise.all(nwUsers.map(async (user) => {
             const tuits = await findTuitByUser(user._id);
             for (const tuit of tuits) {
                 await deleteTuit(tuit._id);
@@ -41,25 +44,28 @@ describe('like button updates tuit stats', () => {
         }))
     })
 
-    test('like button updates tuit stats', async () => {
-        // create new tuit by first user
-        const user0 = newUsers[0];
-        newTuit = await createTuit(user0._id, {
-            tuit: `Test Tuit by ${user0.username}`
+    test('updating tuits stats by like button', async () => {
+        // creating a tuit form first user
+        const firstUser = nwUsers[0];
+        nwTuit = await createTuit(firstUser._id, {
+            tuit: `testing tuit by ${firstUser.username}`
         });
-        // all users like the new tuit
-        for (const newUser of newUsers) {
-            await userTogglesTuitLikes(newUser._id, newTuit._id);
+        
+        // all users have interacted with tuit by likeing it
+        for (const nwUser of nwUsers) {
+            await userTogglesTuitLikes(nwUser._id, nwTuit._id);
         }
 
-        // retrieve all the tuits liked by user 0
-        const allLikedTuits = await findAllTuitsLikedByUser(user0._id);
-        const filtered = allLikedTuits.filter(tuit => tuit._id === newTuit._id);
-        // check filtered tuits to include our sent tuit
-        expect(filtered.length).toEqual(1);
-        const tuitStats = filtered[0].stats;
+        // retreive all tuits liked by user
+        const allLikedTuitsByUser = await findAllTuitsLikedByUser(firstUser._id);
+        const filteredTuits = allLikedTuitsByUser.filter(tuit => tuit.tuit === nwTuit._id);
 
-        // compare the tuit stats retrieved from api with the number of users who liked
-        expect(tuitStats.likes).toEqual(newUsers.length);
+        // check if filtered tuits is same as tutis created by user
+        expect(filteredTuits.length).toEqual(1);
+
+        const tuitStats = await findTuitById(nwTuit._id)
+
+        // compare the no of likes for tuit
+        expect(tuitStats.stats.likes).toEqual(nwUsers.length);
     });
 });
