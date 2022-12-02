@@ -3,6 +3,7 @@ import {HashRouter, Link, Route, Routes, useNavigate, useLocation} from "react-r
 import * as service from "../../services/auth-service"
 import MyTuits from "./my-tuits";
 import MyLikes from "./my-likes";
+import MyDislikes from "./my-dislikes.js";
 
 
 
@@ -35,16 +36,19 @@ const Profile = () => {
     <div className="row">
       <h4>{profile.username}</h4>
       <h6>@{profile.username}</h6>
+      <br/>
       <div className="row">
-        <div className="col-2"/>
-        <div className="col-2">
-        <Link className={`btn btn-primary rounded-pill fa-pull-left fw-bold`} to="/profile/mytuits"> Tuits</Link>
+        <div className="col">
+        <Link className={`btn btn-primary rounded-pill fw-bold`} to="/profile/mytuits"> Tuits</Link>
         </div>
-        <div className="col-2">
-        <Link className={`btn btn-primary rounded-pill fa-pull-left fw-bold`} to="/profile/mylikes"> Likes</Link>
+        <div className="col">
+        <Link className={`btn btn-primary rounded-pill fw-bold`} to="/profile/mylikes"> Likes</Link>
         </div>
-        <div className="col-2">
-        <Link className={`btn btn-primary rounded-pill fa-pull-left fw-bold`} onClick={logout}>Logout</Link>
+        <div className="col">
+        <Link className={`btn btn-primary rounded-pill fw-bold`} to="/profile/mydislikes"> Dislikes</Link>
+        </div>
+        <div className="col">
+        <Link className={`btn btn-danger rounded-pill fw-bold`} onClick={logout}>Logout</Link>
         </div>
       </div>
       <div className="row"><br/></div>
@@ -54,6 +58,8 @@ const Profile = () => {
                element={<MyTuits/>}/>
         <Route path="/mylikes"
                element={<MyLikes/>}/>
+        <Route path="/mydislikes" 
+               element={<MyDislikes/>}/>
         {/* <Route path="/tuits-and-replies"
                element={<TuitsAndReplies/>}/>
         <Route path="/media"
