@@ -3,8 +3,30 @@ import TuitStats from "./tuit-stats";
 import TuitImage from "./tuit-image";
 import TuitVideo from "./tuit-video";
 import {useNavigate, Link} from "react-router-dom";
+import * as usersService from "../../services/users-service";
+import {useEffect, useState} from "react";
 
-const Tuit = ({tuit, likeTuit}) => {
+const Tuit = ({tuit, likeTuit, dislikeTuit}) => {
+  
+    const [usr, setUsr] = useState('me');
+    const usrname = (tuit) =>{
+      console.log(tuit)
+      if (tuit !== undefined) {
+        usersService
+        .findUserById(tuit.postedBy)
+        .then(user => setUsr(user.username))
+        .catch(e => alert(e))
+      }
+      
+    }
+
+    
+
+
+    useEffect(() => {
+      usrname(tuit);
+  },[]);
+
     console.log(tuit.stats)
     const daysOld = (tuit) => {
         const now = new Date();
@@ -40,8 +62,8 @@ const Tuit = ({tuit, likeTuit}) => {
       <div className="w-100">
         <h2
           className="fs-5">
-          {tuit.postedBy && tuit.postedBy.username}
-          @{tuit.postedBy && tuit.postedBy.username} -
+          {usr}
+          @{usr} -
             <span className="ms-1">{daysOld(tuit)}</span></h2>
         {tuit.tuit}
         {
@@ -52,7 +74,7 @@ const Tuit = ({tuit, likeTuit}) => {
           tuit.image &&
           <TuitImage tuit={tuit}/>
         }
-        <TuitStats tuit={tuit} likeTuit={likeTuit}/>
+        <TuitStats tuit={tuit} likeTuit={likeTuit} dislikeTuit={dislikeTuit}/>
       </div>
     </li>
   );
