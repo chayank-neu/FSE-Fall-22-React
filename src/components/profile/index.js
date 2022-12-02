@@ -2,6 +2,8 @@ import React, {useEffect, useState} from "react";
 import {HashRouter, Link, Route, Routes, useNavigate, useLocation} from "react-router-dom";
 import * as service from "../../services/auth-service"
 import MyTuits from "./my-tuits";
+import MyLikes from "./my-likes";
+
 
 
 /**
@@ -36,7 +38,10 @@ const Profile = () => {
       <div className="row">
         <div className="col-2"/>
         <div className="col-2">
-        <Link className={`btn btn-primary rounded-pill fa-pull-left fw-bold`} to="/profile/mytuits"> MyTuits</Link>
+        <Link className={`btn btn-primary rounded-pill fa-pull-left fw-bold`} to="/profile/mytuits"> Tuits</Link>
+        </div>
+        <div className="col-2">
+        <Link className={`btn btn-primary rounded-pill fa-pull-left fw-bold`} to="/profile/mylikes"> Likes</Link>
         </div>
         <div className="col-2">
         <Link className={`btn btn-primary rounded-pill fa-pull-left fw-bold`} onClick={logout}>Logout</Link>
@@ -47,6 +52,8 @@ const Profile = () => {
         <Routes>
         <Route path="/mytuits"
                element={<MyTuits/>}/>
+        <Route path="/mylikes"
+               element={<MyLikes/>}/>
         {/* <Route path="/tuits-and-replies"
                element={<TuitsAndReplies/>}/>
         <Route path="/media"
