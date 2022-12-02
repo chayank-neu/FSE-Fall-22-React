@@ -58,7 +58,8 @@ describe('updating tuits stats by like button', () => {
 
         // retreive all tuits liked by user
         const allLikedTuitsByUser = await findAllTuitsLikedByUser(firstUser._id);
-        const filteredTuits = allLikedTuitsByUser.filter(tuit => tuit.tuit === nwTuit._id);
+        console.log(allLikedTuitsByUser)
+        const filteredTuits = allLikedTuitsByUser.filter(tuit => tuit._id === nwTuit._id);
 
         // check if filtered tuits is same as tutis created by user
         expect(filteredTuits.length).toEqual(1);
