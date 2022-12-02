@@ -58,7 +58,7 @@
          // retreive all tuits disliked by user
          const allDislikedTuitsByUser = await findAllTuitsDislikedByUser(firstUser._id);
          
-         const filteredTuits = allDislikedTuitsByUser.filter(tuit => tuit.tuit === nwTuit._id);
+         const filteredTuits = allDislikedTuitsByUser.filter(tuit => tuit._id === nwTuit._id);
          
          // check if filtered tuits is same as tutis created by user
          expect(filteredTuits.length).toEqual(1);
